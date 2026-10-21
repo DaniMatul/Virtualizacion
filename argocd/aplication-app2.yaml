@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app2
+  namespace: argocd-mdma
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/DaniMatul/Virtualizacion
+    targetRevision: hw-06
+    path: app/app2
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: parcial-mdma
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
