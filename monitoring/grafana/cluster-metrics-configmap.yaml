@@ -1,0 +1,85 @@
+apiVersion: v1
+data:
+  cluster-metrics.json: |-
+    {
+      "title": "Kubernetes Cluster Metrics",
+      "uid": "cluster-metrics",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "10s",
+      "panels": [
+        {
+          "type": "timeseries",
+          "title": "CPU Usage by Pod",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total{container!=\"\"}[5m])) by (pod)",
+              "legendFormat": "{{pod}}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "type": "timeseries",
+          "title": "Memory Usage by Pod",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(container_memory_working_set_bytes{container!=\"\"}) by (pod)",
+              "legendFormat": "{{pod}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 0
+          }
+        },
+        {
+          "type": "table",
+          "title": "Pod Status",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(kube_pod_status_phase) by (phase)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          }
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-cluster-metrics
+  namespace: monitoring-mdma

@@ -1,0 +1,76 @@
+apiVersion: v1
+data:
+  application-logs.json: |-
+    {
+      "title": "Application Logs",
+      "uid": "application-logs",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "10s",
+      "panels": [
+        {
+          "type": "logs",
+          "title": "App 1 Logs",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "targets": [
+            {
+              "expr": "{namespace=\"parcial-mdma\", app=\"app1\"}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
+        },
+        {
+          "type": "logs",
+          "title": "App 2 Logs",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "targets": [
+            {
+              "expr": "{namespace=\"parcial-mdma\", app=\"app2\"}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
+        },
+        {
+          "type": "logs",
+          "title": "App 3 Logs",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "targets": [
+            {
+              "expr": "{namespace=\"parcial-mdma\", app=\"app3\"}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+        },
+        {
+          "type": "logs",
+          "title": "App 4 Logs",
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "targets": [
+            {
+              "expr": "{namespace=\"parcial-mdma\", app=\"app4\"}",
+              "refId": "A"
+            }
+          ],
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-application-logs
+  namespace: monitoring-mdma
